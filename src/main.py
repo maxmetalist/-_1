@@ -2,9 +2,9 @@ from src.utils import get_current_time_string
 
 
 def main(date_time):
-    if date_time in range(5,11):
+    if date_time in range(5, 11):
         print("Доброе утро!")
-    elif date_time in range(11,16):
+    elif date_time in range(11, 16):
         print("Добрый день")
     elif date_time in range(16, 22):
         print("Добрый вечер")
