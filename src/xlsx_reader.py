@@ -9,7 +9,7 @@ def read_xlsx_transactions(transactions_xlsx_path):
     if not os.path.exists(transactions_xlsx_path):
         print(f"Файл не найден: {transactions_xlsx_path}")
 
-    if not transactions_xlsx_path.lower().endswith('.xlsx'):
+    if not transactions_xlsx_path.lower().endswith(".xlsx"):
         print("Файл должен быть в формате .xlsx")
 
     try:
