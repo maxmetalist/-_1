@@ -63,4 +63,4 @@ def get_stocks_price(symbol):
 
 
 if __name__ == "__main__":
-    print(get_stocks_price("IBM"))
+    print(get_stocks_price("GOOGL"))
