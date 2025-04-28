@@ -1,9 +1,6 @@
 import datetime
-import os
 
 from dateutil.relativedelta import relativedelta
-
-from src.xlsx_reader import read_xlsx_transactions
 
 
 def filter_transactions_by_category(transactions, category, date=None):
@@ -31,9 +28,3 @@ def filter_transactions_by_category(transactions, category, date=None):
             filtered_transactions.append(transaction)
 
     return filtered_transactions
-
-
-if __name__ == "__main__":
-    transactions_path = os.path.join(os.path.dirname(__file__), "..\\data\\", "operations.xlsx")
-    transacts = read_xlsx_transactions(transactions_path)
-    print(filter_transactions_by_category(transacts, "Переводы", "20.03.2020"))

@@ -19,8 +19,3 @@ def read_xlsx_transactions(transactions_xlsx_path):
     except Exception as ex:
         print(f"Произошла ошибка {ex}")
     return transactions_list_xlsx
-
-
-if __name__ == "__main__":
-    transactions_path = os.path.join(os.path.dirname(__file__), "..\\data\\", "operations.xlsx")
-    print(read_xlsx_transactions(transactions_path))

@@ -2,8 +2,6 @@ import logging
 import os
 from datetime import datetime
 
-from src.xlsx_reader import read_xlsx_transactions
-
 logger_utils = logging.getLogger("utils")
 file_handler = logging.FileHandler(
     os.path.join(os.path.dirname(__file__), "..\\logs\\", "utils.log"), mode="w", encoding="utf-8"
@@ -44,10 +42,3 @@ def filter_transactions_by_current_month(transactions, current_date=None):
     filtered_transactions.sort(key=lambda x: datetime.strptime(x["Дата операции"], "%d.%m.%Y %H:%M:%S"))
     logger_utils.debug("Вывод результата")
     return filtered_transactions
-
-
-if __name__ == "__main__":
-    transactions_path = os.path.join(os.path.dirname(__file__), "..\\data\\", "operations.xlsx")
-    transact = read_xlsx_transactions(transactions_path)
-    result = filter_transactions_by_current_month(transact, "12.12.2021")
-    print(result)

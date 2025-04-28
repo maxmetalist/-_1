@@ -1,9 +1,5 @@
 import json
-import os
 from functools import wraps
-
-from src.reports_func import filter_transactions_by_category
-from src.xlsx_reader import read_xlsx_transactions
 
 
 def report_to_file(filename=None):
@@ -26,14 +22,3 @@ def report_to_file(filename=None):
         return decorator
 
     return wrapper
-
-
-@report_to_file(os.path.join(os.path.dirname(__file__), "..\\data\\", "reports"))
-def my_func():
-    transactions_path = os.path.join(os.path.dirname(__file__), "..\\data\\", "operations.xlsx")
-    transact = read_xlsx_transactions(transactions_path)
-    res = filter_transactions_by_category(transact, "Переводы", "20.03.2020")
-    return res
-
-
-my_func()

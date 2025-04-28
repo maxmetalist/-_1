@@ -1,7 +1,4 @@
-import os
 import re
-
-from src.xlsx_reader import read_xlsx_transactions
 
 
 def filter_person_transfer(transactions):
@@ -27,12 +24,6 @@ def filter_person_transfer(transactions):
     return filtered_transactions
 
 
-if __name__ == "__main__":
-    transactions_path = os.path.join(os.path.dirname(__file__), "..\\data\\", "operations.xlsx")
-    transacts = read_xlsx_transactions(transactions_path)
-    print(filter_person_transfer(transacts))
-
-
 def find_transactions_by_name(transactions, name):
     """Функция поиска транзакции по имени получателя в формате Иван П."""
     result = {}
@@ -48,9 +39,3 @@ def find_transactions_by_name(transactions, name):
                 result[date] = amount
 
     return result
-
-
-if __name__ == "__main__":
-    transactions_path = os.path.join(os.path.dirname(__file__), "..\\data\\", "operations.xlsx")
-    transacts = read_xlsx_transactions(transactions_path)
-    print(find_transactions_by_name(transacts, "Иван"))

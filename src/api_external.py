@@ -30,10 +30,6 @@ def get_rate(currency_from, currency_to="RUB"):
         print("Произошла ошибка. Проверьте корректность данных")
 
 
-if __name__ == "__main__":
-    print(get_rate("EUR"))
-
-
 def get_stocks_price(symbol):
     """Функция получения котировок акций во временном интервале 60мин"""
     if isinstance(symbol, str) and symbol.isalpha():
@@ -60,7 +56,3 @@ def get_stocks_price(symbol):
             return {}
     else:
         return "Укажите символ требуемой котировки, например 'IBM'"
-
-
-if __name__ == "__main__":
-    print(get_stocks_price("GOOGL"))
