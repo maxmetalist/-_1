@@ -1,9 +1,12 @@
 import datetime
+from typing import Any, Dict, List, Optional, Union
 
 from dateutil.relativedelta import relativedelta
 
 
-def filter_transactions_by_category(transactions, category, date=None):
+def filter_transactions_by_category(
+    transactions: Union[List[Dict[str, Any]]], category: str, date: Optional[str] = None
+) -> Union[List[Dict[str, Any]]]:
     """Фильтрует транзакции по категории за последние 3 месяца от указанной даты"""
     if date:
         reference_date = datetime.datetime.strptime(date, "%d.%m.%Y").date()

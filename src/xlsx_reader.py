@@ -1,9 +1,10 @@
 import os.path
+from typing import Any, Dict, Hashable, List
 
 import pandas as pd
 
 
-def read_xlsx_transactions(transactions_xlsx_path):
+def read_xlsx_transactions(transactions_xlsx_path: str) -> List[Dict[Hashable, Any]]:
     """Функция, считывающая файл excel по указанному пути"""
     transactions_list_xlsx = []
     if not os.path.exists(transactions_xlsx_path):

@@ -1,4 +1,5 @@
 import os
+from typing import Any, Dict, Union
 
 import requests
 from dotenv import load_dotenv
@@ -8,7 +9,7 @@ API_KEY_RATE = os.getenv("RATE_API_KEY")
 API_KEY_STOCK = os.getenv("STOCK_API_KEY")
 
 
-def get_rate(currency_from, currency_to="RUB"):
+def get_rate(currency_from: str, currency_to: str = "RUB") -> Any:
     """Функция получения курса валюты"""
     if not isinstance(currency_from, str) or not isinstance(currency_to, str):
         raise ValueError("Коды валют должны быть строками")
@@ -28,9 +29,10 @@ def get_rate(currency_from, currency_to="RUB"):
             return "Запрос отклонён. Причина: некорректные данные"
     except requests.exceptions.RequestException:
         print("Произошла ошибка. Проверьте корректность данных")
+        return "Произошла ошибка при запросе к API"
 
 
-def get_stocks_price(symbol):
+def get_stocks_price(symbol: str) -> Union[Dict[str, float], str]:
     """Функция получения котировок акций во временном интервале 60мин"""
     if isinstance(symbol, str) and symbol.isalpha():
         symbol = symbol.upper().strip()

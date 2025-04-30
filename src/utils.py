@@ -1,6 +1,7 @@
 import logging
 import os
 from datetime import datetime
+from typing import Any, Dict, List, Optional, Union
 
 logger_utils = logging.getLogger("utils")
 file_handler = logging.FileHandler(
@@ -12,7 +13,9 @@ logger_utils.addHandler(file_handler)
 logger_utils.setLevel(logging.DEBUG)
 
 
-def filter_transactions_by_current_month(transactions, current_date=None):
+def filter_transactions_by_current_month(
+    transactions: Union[List[Dict[str, Any]]], current_date: Optional[Any] = None
+) -> Union[List[Dict[str, Any]]]:
     """Фильтрует транзакции с начала месяца по указанную дату"""
     if current_date is None:
         logger_utils.debug("Дата не задана, выбираем текущую дату")

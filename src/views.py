@@ -1,5 +1,6 @@
 import logging
 import os
+from typing import Any, Dict, List, SupportsFloat, Union
 
 logger_views_card = logging.getLogger("views")
 file_handler_card = logging.FileHandler(
@@ -11,9 +12,11 @@ logger_views_card.addHandler(file_handler_card)
 logger_views_card.setLevel(logging.DEBUG)
 
 
-def total_consume_card_number(transact):
+def total_consume_card_number(
+    transact: Union[List[Dict[str, SupportsFloat]]],
+) -> Union[List[Dict[SupportsFloat, str]]]:
     """Функция подсчёта общего количества расходов по номерам карт(учитываются только платежи со статусом OK)"""
-    card_dict = {}
+    card_dict: Dict[SupportsFloat, float] = {}
     for transaction in transact:
         logger_views_card.debug("Проверка содержимого ячейки номера карты")
         card_number = transaction.get("Номер карты")
@@ -50,7 +53,7 @@ logger_views_top5.addHandler(file_handler_top5)
 logger_views_top5.setLevel(logging.DEBUG)
 
 
-def get_top5_transactions(transact):
+def get_top5_transactions(transact: Union[List[Dict[str, Any]]]) -> List[Dict[str, Any]]:
     """Возвращает 5 самых больших по модулю отрицательных транзакций со статусом OK"""
     logger_views_top5.debug("Фильтруем транзакции: только статус OK и отрицательная сумма платежа")
     filtered = [

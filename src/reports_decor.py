@@ -1,14 +1,15 @@
 import json
 from functools import wraps
+from typing import Any, Callable, Optional
 
 
-def report_to_file(filename=None):
+def report_to_file(filename: Optional[str] = None) -> Callable:
     """Декоратор для записи результатов функций-отчётов в файл"""
 
-    def wrapper(func):
+    def wrapper(func: Callable) -> Callable:
 
         @wraps(func)
-        def decorator(*args, **kwargs):
+        def decorator(*args: Any, **kwargs: Any) -> Any:
             result = func(*args, **kwargs)
             if filename:
                 report_filename = filename

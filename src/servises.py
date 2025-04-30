@@ -1,7 +1,8 @@
 import re
+from typing import Any, Dict, List, Union
 
 
-def filter_person_transfer(transactions):
+def filter_person_transfer(transactions: Union[List[Dict[str, Any]]]) -> Union[List[Dict[str, Any]]]:
     """Функция поиска переводов физ лицам"""
     name_pattern = re.compile(r"[А-ЯЁа-яё]+\s[А-ЯЁ]\.")
 
@@ -24,7 +25,7 @@ def filter_person_transfer(transactions):
     return filtered_transactions
 
 
-def find_transactions_by_name(transactions, name):
+def find_transactions_by_name(transactions: Union[List[Dict[str, Any]]], name: str) -> Dict[str, Any]:
     """Функция поиска транзакции по имени получателя в формате Иван П."""
     result = {}
     name_regex = re.compile(rf"\b{re.escape(name)}\b", re.IGNORECASE)
