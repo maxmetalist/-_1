@@ -1,7 +1,4 @@
-import logging
-import os
-from datetime import datetime
-from typing import Any, Dict, List, Optional, Union
+
 
 logger_utils = logging.getLogger("utils")
 file_handler = logging.FileHandler(
@@ -12,17 +9,15 @@ file_handler.setFormatter(file_formatter)
 logger_utils.addHandler(file_handler)
 logger_utils.setLevel(logging.DEBUG)
 
-
-def filter_transactions_by_current_month(
-    transactions: Union[List[Dict[str, Any]]], current_date: Optional[Any] = None
-) -> Union[List[Dict[str, Any]]]:
+from datetime import datetime
+def filter_transactions_by_current_month(transactions, current_date=None):
     """Фильтрует транзакции с начала месяца по указанную дату"""
     if current_date is None:
         logger_utils.debug("Дата не задана, выбираем текущую дату")
         current_date = datetime.now()
     elif isinstance(current_date, str):
         logger_utils.debug("форматирование даты в формат дд.мм.гггг")
-        current_date = datetime.strptime(current_date, "%d.%m.%Y")
+        current_date = datetime.strptime(current_date, '%d.%m.%Y')
     logger_utils.debug("Получение даты начала отчётного периода")
     first_day_of_month = current_date.replace(day=1)
     logger_utils.debug("Получение даты окончания отчётного периода")
@@ -32,16 +27,8 @@ def filter_transactions_by_current_month(
     logger_utils.debug("Фильтрация транзакций по отчётному периоду")
     for transaction in transactions:
         try:
-            op_date_str = transaction["Дата операции"]
-            op_date = datetime.strptime(op_date_str, "%d.%m.%Y %H:%M:%S")
+            op_date_str = transaction['Дата операции']
+            op_date = datetime.strptime(op_date_str, '%d.%m.%Y %H:%M:%S')
 
             if first_day_of_month <= op_date <= end_of_day:
                 filtered_transactions.append(transaction)
-
-        except (KeyError, ValueError) as e:
-            logger_utils.error(f"Произошла ошибка {e}")
-            continue
-    logger_utils.debug("Сортировка по убыванию даты в отфильтрованных транзакциях")
-    filtered_transactions.sort(key=lambda x: datetime.strptime(x["Дата операции"], "%d.%m.%Y %H:%M:%S"))
-    logger_utils.debug("Вывод результата")
-    return filtered_transactions
