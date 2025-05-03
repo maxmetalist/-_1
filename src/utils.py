@@ -1,7 +1,5 @@
-import datetime
-import os
-from src.xlsx_reader import read_xlsx_transactions
-import logging
+
+
 logger_utils = logging.getLogger("utils")
 file_handler = logging.FileHandler(
     os.path.join(os.path.dirname(__file__), "..\\logs\\", "utils.log"), mode="w", encoding="utf-8"
@@ -10,18 +8,6 @@ file_formatter = logging.Formatter("%(asctime)s %(filename)s %(levelname)s: %(me
 file_handler.setFormatter(file_formatter)
 logger_utils.addHandler(file_handler)
 logger_utils.setLevel(logging.DEBUG)
-
-def get_current_time_string(timezone="Europe/Moscow"):
-    """Функция получения текущего времени суток"""
-    try:
-        logger_utils.debug("Получение текущей даты")
-        current_date_time = datetime.datetime.now()
-        return current_date_time.strftime("%H")
-    except Exception as e:
-        logger_utils.error(f"Ошибка {e}")
-        return datetime.datetime.utcnow().strftime("%H")
-
-print(get_current_time_string())
 
 from datetime import datetime
 def filter_transactions_by_current_month(transactions, current_date=None):
@@ -46,16 +32,3 @@ def filter_transactions_by_current_month(transactions, current_date=None):
 
             if first_day_of_month <= op_date <= end_of_day:
                 filtered_transactions.append(transaction)
-
-        except (KeyError, ValueError) as e:
-            continue
-    logger_utils.debug("Сортировка по убыванию даты в отфильтрованных транзакциях")
-    filtered_transactions.sort(key=lambda x: datetime.strptime(x['Дата операции'], '%d.%m.%Y %H:%M:%S'))
-    logger_utils.debug("Вывод результата")
-    return filtered_transactions
-
-if __name__ == "__main__":
-    transactions_path = os.path.join(os.path.dirname(__file__), "..\\data\\", "operations.xlsx")
-    transact = read_xlsx_transactions(transactions_path)
-    result = filter_transactions_by_current_month(transact, "12.03.2020")
-    print(result)
